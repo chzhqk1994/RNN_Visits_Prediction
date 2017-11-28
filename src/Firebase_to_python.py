@@ -22,11 +22,11 @@ def Connect_to_Firebase(SERVICE_KEY, DB_ADDRESS, DATA_DIR):
     return data
 
 
-key_dir = 'C:/Users/User/Desktop/Mamamia Internship/serviceKey.json'
-db_url = 'https://mamamia-analytics.firebaseio.com'
-data_dir = 'facebook/Mamamia/page_impressions'
-
-
-collected_data = Connect_to_Firebase(key_dir, db_url, data_dir)
-
-print(collected_data)
+# key_dir = 'C:/Users/User/Desktop/Mamamia Internship/serviceKey.json'
+# db_url = 'https://mamamia-analytics.firebaseio.com'
+# data_dir = 'facebook/Mamamia/page_impressions'
+#
+#
+# collected_data = Connect_to_Firebase(key_dir, db_url, data_dir)
+#
+# print(collected_data)
