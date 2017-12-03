@@ -15,7 +15,8 @@ data = connect.load_data_from_firebase(DATA_DIR)
 
 # 그냥 sorted 함수를 사용하니 List 형으로 바뀌면서 csv 로 저장이 안됨, collection 라이브러리를 이용하여 Dictionary 를 List 형으로 바꾸지 않고 정렬
 sorted_x = collections.OrderedDict(sorted(data.items()))
-
+# for s in sorted_x
+#    test if is in other array and append 3rd column
 print(type(sorted_x), sorted_x)  # dictionary 형인것을 확인하기 위한 코드
 
 # dictionary 형 배열을 csv 파일로 변환
