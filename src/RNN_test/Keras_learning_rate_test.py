@@ -41,7 +41,7 @@ dataset = scaler.fit_transform(dataset)
 # 데이터세트를 학습, 테스트 데이터로 나눔, 아래 코드는 학습데이터 67%, 나머지는 테스트 데이터로 나눔
 train_size = int(len(dataset) * 0.67)  # 데이터셋에서 자를 부분을 계산함
 test_size = len(dataset) - train_size
-train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
+train, test = dataset[0:train_size], dataset[train_size:len(dataset)]
 
 
 # reshape into X=t and Y=t+1

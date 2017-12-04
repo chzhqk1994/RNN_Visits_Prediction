@@ -29,3 +29,11 @@
     * RNN_test 폴더의 LSTM_RNN.py 파일은 예측된 그래프가 변형되지 않은 모습으로 나타난다. 예측은 잘 되는것 같은데 다른 Dataset 으로 테스트 해볼 필요가 있다.
     * Paul이 얼른 제대로된 데이터를 내놔야 한다. 지금 주어진 Dataset은 넘나 이상하다. 빨리 내놔요 Paul님 현기증난다구
 
+
+
+
+* 8일차
+    * 현재 수정하고 있는 모델이 Tensorflow 말고 Keras를 이용하여 설계된 모델이라 Keras를 공부하고 있다. 확실히 Tensorflow 보단 간단한듯
+    * 모델이 돌아가긴 해서 레이어를 중첩해보려고 하는데 LSTM input dimensions 문제가 계속 발생한다.
+    * expected lstm_1_input to have 3 dimensions, but got array with shape (215, 1)  이거 정체가 뭐냐
+    * 나이거 ㄹㅇ 모르겠어 따흐흙
