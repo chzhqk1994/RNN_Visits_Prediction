@@ -55,10 +55,10 @@ testX = numpy.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
 
 # create and fit the LSTM network
 model = Sequential()
-model.add(LSTM(10, input_shape=(1, look_back)))  # 4개의 LSTM 또는 블록이 있는 숨겨진 레이어
+model.add(LSTM(200, input_shape=(1, look_back)))  # 4개의 LSTM 또는 블록이 있는 숨겨진 레이어
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
-model.fit(trainX, trainY, epochs=1000, batch_size=10, verbose=2)
+model.fit(trainX, trainY, epochs=2000, batch_size=10, verbose=2)
 
 
 # make predictions
@@ -78,7 +78,6 @@ trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:, 0]))
 print('Train Score: %.2f RMSE' % (trainScore))
 testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:, 0]))
 print('Test Score: %.2f RMSE' % (testScore))
-
 
 # ============================== 이 아래로는 그래프를 그리는 코드 =============================================
 

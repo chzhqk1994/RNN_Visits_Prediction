@@ -37,3 +37,32 @@
     * 모델이 돌아가긴 해서 레이어를 중첩해보려고 하는데 LSTM input dimensions 문제가 계속 발생한다.
     * expected lstm_1_input to have 3 dimensions, but got array with shape (215, 1)  이거 정체가 뭐냐
     * 나이거 ㄹㅇ 모르겠어 따흐흙
+
+* 9일차
+    * demensions 에러를 고쳤다! 에러를 고칠줄은 아는데 이유는 모르겠다. 막 하다보니까 되는겨
+    * In a stateful network, you should only pass inputs with a number of samples that can be divided by the batch size 이젠 종종 이 에러가 문제다
+    * 나는 batch size를 직접 지정했는데도 batch_size가 32라고 에러가 종종 뜬다.
+    * Neural 스택을 쌓지만 않으면 에러가 발생하지 않는다. 왜 쌓으면 에러가 나는거지... 쌓아보고싶어요ㅠㅠ
+
+* 10일차
+    * Feature 가 늘었다!! Days of Week, Tags(게시물의 태그, 약 15개쯤 된다), Time of Day 이렇게 3가지의 Feature 가 생겼다.
+    * 주어진 Feature 에 따라 방문자수를 예측하는 모델은 만든다.
+    * 어떤 요일, 몇시, 어떤 태그의 posts 를 올려야 방문자수를 올릴 수 있는지 알아내는 것이 목적
+    * 나중에 마케팅 팀에게 나보고 설명해달라는것 같은데 오또카지
+    * 혹시나 해서 로드된 데이터를 출력해봤더니 엉망징짱이었따. 다시 로드 파트부터 시작해봐야겠다
+
+* 11일차
+    * 파일을 로드하는 파트부터 하나하나 전부 분석했다. 파일을 어떻게 불러오는지 어떤 모습의 형태로 전달이 되는지 전부 print 해보면서 확인했다.
+    * 코드를 이해하고나니 오류가 한번에 해결되었다. 진작에 이렇게 할걸
+
+* 12일차
+    * 베이스라인 모델을 완성했다.
+    * Paul 에게서 아직 제대로 된 데이터를 받지 못했기 때문에 엑셀의 Random 함수를 사용하여 슈도 데이터셋으로 테스트를 했다. >> 당연히 결과가 이상하다
+    * 모델을 테스트 하기 위해 주식 데이터셋을 이용했다. 정상적으로 예측하고 있다.
+    * 할게 없어서 Mysql workbench 로 데이터베이스 연습
+    * 1시부터 Christmas party~ yeah~
+
+
+
+
+* 15일차
