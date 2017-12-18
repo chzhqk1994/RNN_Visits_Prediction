@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Fetch the service account key JSON file contents
 # 인증키 경로, git 폴더 밖에 저장
-cred = credentials.Certificate('C:/Users/User/Desktop/Mamamia Internship/serviceKey.json')
+cred = credentials.Certificate('C:/Users/User/Desktop/Mamamia_Internship/serviceKey.json')
 
 # Initialize the app with a service account, granting admin privileges
 # 데이터베이스 주소 지정
