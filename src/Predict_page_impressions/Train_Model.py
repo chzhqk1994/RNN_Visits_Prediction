@@ -12,17 +12,23 @@ import pandas as pd
 import sklearn.preprocessing as prep
 
 
-epochs = 10
-learning_rate = 0.001
-batch_size = 12
+epochs = 10000
+learning_rate = 0.005
+batch_size = 768
 sequence = 20
-lstm = 200
+lstm = 100
 dataset_rate = 0.85
 
 
+
+
+
+
+
 # loaded_dataset = pd.read_csv('page_impressions_test.csv')
-# loaded_dataset = pd.read_csv('data-02-stock_daily.csv')
-loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/real_dataset(less).csv')
+loaded_dataset = pd.read_csv('data-02-stock_daily.csv')
+# loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/train_dataset.csv')
+# loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/train_dataset(binary).csv')
 
 
 def standard_scaler(X_train, X_test):  # train, result 가 넘어옴, X_train = train, X_test = result
