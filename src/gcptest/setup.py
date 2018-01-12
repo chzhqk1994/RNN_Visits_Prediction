@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(name='rnn_model',
-      version='1.0',
+      version='1.4',
       packages=find_packages(),
       include_package_data=True,
       description='Page_impressions keras model on Cloud ML Engine',

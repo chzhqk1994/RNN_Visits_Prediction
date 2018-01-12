@@ -2,16 +2,17 @@
 
 # https://github.com/clintonreece/keras-cloud-ml-engine  >> 구글 클라우드 튜토리얼
 
+# python trainer/rnn_model.py --job-dir ./tmp/rnn_model --train-file data/stock_data.csv   >> 로컬 학습 명령어
+
+# gcloud ml-engine jobs submit training rnn_model --job-dir gs://dataset_page_impressions/rnn_model --runtime-version 1.0 --module-name trainer.rnn_model --package-path ./trainer --region us-central1 -- --train-file gs://BUCKET_NAME/data/stock_data.csv   >>  클라우드 학습 명령어
+
 from __future__ import print_function
 import argparse
 import h5py  # for saving the model
 from datetime import datetime  # for filename conventions
 from tensorflow.python.lib.io import file_io
-import sys
 
-import time
 import math
-import keras
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.layers.recurrent import LSTM
@@ -101,20 +102,19 @@ def build_model(layers):  # layer[Feature 의 수(input_dim), 윈도우의 크�
     model.add(Dense(units=layers[3]))  # units = output_dimensions
     model.add(Activation("linear"))
 
-    start = time.time()
     rmsprop = optimizers.RMSprop(lr=learning_rate, rho=0.9, epsilon=1e-08, decay=0.0)
     model.compile(loss="mse", optimizer=rmsprop, metrics=['accuracy'])
-    print("Compilation Time : ", time.time() - start)
+
     return model
 
 
 # create function to allow for different training data and other options
-def train_model(train_file='data/data-02-stock_daily.csv', job_dir='./tmp/rnn_model', **args):
+def train_model(train_file='/data/stock_data.csv', job_dir='./tmp/rnn_model', **args):
     # set the logging path for ML Engine logging to Storage bucket
     logs_path = job_dir + '/logs/' + datetime.now().isoformat()
     print('Using logs_path located at {}'.format(logs_path))
 
-    loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/gcptest/data/data-02-stock_daily.csv')
+    loaded_dataset = pd.read_csv(train_file)
 
     window = sequence  # 시퀀스 길이로 넘겨진다, 타임 스탬프 비슷한건가? 이전의 5개의 값을 보고 다음 값 1개를 예측하는 방식
     X_train, y_train, X_test, y_test = preprocess_data(loaded_dataset[:: -1], window)  # [::-1] 을 하면 리스트가 역순으로 반환된다. 12 > 21
@@ -124,8 +124,7 @@ def train_model(train_file='data/data-02-stock_daily.csv', job_dir='./tmp/rnn_mo
 
     print(model.summary())  # 모델의 그래프 구조를 정리해서 보여줌
 
-    # 텐서보드와 연동
-    # tensorboard --logdir= 그래프 파일 경로
+
     model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=2)
 
 

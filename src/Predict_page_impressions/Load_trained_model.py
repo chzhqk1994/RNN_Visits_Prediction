@@ -7,8 +7,9 @@ from keras.models import load_model
 from keras.engine import InputLayer
 
 
-loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/real_dataset(less) - Copy.csv')
-window = 0  # 시퀀스 길이로 넘겨진다, 타임 스탬프 비슷한건가? 이전의 5개의 값을 보고 다음 값 1개를 예측하는 방식
+loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/train_dataset(binary).csv')
+# loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Predict_page_impressions/predict.csv')
+window = 2  # 시퀀스 길이로 넘겨진다, 타임 스탬프 비슷한건가? 이전의 5개의 값을 보고 다음 값 1개를 예측하는 방식
 
 
 def standard_scaler(dataset):  # train, result 가 넘어옴, X_train = train, X_test = result
@@ -23,7 +24,7 @@ def standard_scaler(dataset):  # train, result 가 넘어옴, X_train = train, X
 
     dataset = dataset.reshape((dataset_samples, dataset_nx * dataset_ny))  # X_train.shape = (데이터 길이, 시퀀스 길이 * Feature 수)
 
-    print('Reshaped X_train.shape : ', dataset.shape)
+    print('Reshaped X_train.shapeㅌ : ', dataset.shape)
     print(dataset)
 
     preprocessor = prep.StandardScaler().fit(dataset)  # 0을 기준으로 정규분포를 만드는 것 같다.
@@ -44,7 +45,8 @@ def standard_scaler(dataset):  # train, result 가 넘어옴, X_train = train, X
 def preprocess_data(dataset, seq_len):
     amount_of_features = len(dataset.columns)  # 피쳐 수
     data = dataset.as_matrix()
-    print(data)
+    print("len",amount_of_features)
+    print("data",data)
     sequence_length = seq_len + 1  # 넘어온 시퀀스 길이에 + 1
     result = []
 
@@ -60,14 +62,13 @@ def preprocess_data(dataset, seq_len):
     return new_result
 
 
-
 real_data = preprocess_data(loaded_dataset, window)  # [::-1] 을 하면 리스트가 역순으로 반환된다. 12 > 21
 
 print(real_data)
 
 input_layer = InputLayer(input_shape=(None, None), name="input_1")
 
-model = load_model('trained_model.h5')
+model = load_model('epochs_10000.learning_rate_0.01.sequence_5.RNN.4.h5')
 model.layers[0] = input_layer
 model.summary()
 
