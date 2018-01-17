@@ -1,5 +1,5 @@
 # https://github.com/Kulbear/stock-prediction 참조함
-
+# https://github.com/kimanalytics/Recurrent-Neural-Network-to-Predict-Stock-Prices   >> 여기도 참조해서 만들어볼것
 import time
 import math
 import keras
@@ -12,7 +12,7 @@ import pandas as pd
 import sklearn.preprocessing as prep
 
 
-epochs = 10000
+epochs = 5000
 learning_rate = 0.01
 batch_size = 32
 sequence = 5
@@ -20,13 +20,6 @@ lstm = 100
 dataset_rate = 0.85
 
 
-
-
-
-
-
-# loaded_dataset = pd.read_csv('page_impressions_test.csv')
-# loaded_dataset = pd.read_csv('data-02-stock_daily.csv')
 # loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/train_dataset.csv')
 loaded_dataset = pd.read_csv('C:/Users/User/Desktop/Mamamia_Internship/RNN_Visits_Prediction/src/Data_Preprocessing/train_dataset(binary).csv')
 
@@ -56,16 +49,8 @@ def standard_scaler(X_train, X_test):  # train, result 가 넘어옴, X_train = 
     X_train = preprocessor.transform(X_train)       # 어쨌든 데이터 전처리 과정임
     X_test = preprocessor.transform(X_test)
 
-    print('StandardScaler().fit() X_train.shape : ', X_train.shape)
-    print('StandardScaler().fit() X_test.shape : ', X_test.shape)
-    print(X_train)
-
     X_train = X_train.reshape((train_samples, train_nx, train_ny))  # 다시 Feature x 시퀀수 수 모양으로 나눔
     X_test = X_test.reshape((test_samples, test_nx, test_ny))
-
-    print('Reshaped processed X_train.shape : ', X_train.shape)
-    print('Reshaped processed X_test.shape : ', X_test.shape)
-    print(X_train)
 
     return X_train, X_test  # 전처리된 데이터를 반환함
 
@@ -78,7 +63,6 @@ def preprocess_data(dataset, seq_len):
     result = []
     for index in range(len(data) - sequence_length):
         result.append(data[index: index + sequence_length])  # dataset을 시퀀스 길이 +1 만큼 묶음  >> 이거 왜 하는거지?
-
 
     result = np.array(result)  # result 는 시퀀스 길이로 묶인 dataset
     row = round(dataset_rate * result.shape[0])  # 여기서 곱해지는 숫자 (0 ~ 1.0 가 데이터셋을 학습, 테스트로 나누는 비율이다
@@ -141,8 +125,8 @@ def build_model(layers):  # layer[Feature 의 수(input_dim), 윈도우의 크�
 
 loaded_dataset.head()
 
-window = sequence  # 시퀀스 길이로 넘겨진다, 타임 스탬프 비슷한건가? 이전의 5개의 값을 보고 다음 값 1개를 예측하는 방식
-X_train, y_train, X_test, y_test = preprocess_data(loaded_dataset[:: -1], window)  # [::-1] 을 하면 리스트가 역순으로 반환된다. 12 > 21
+window = sequence  # 시퀀스 길이로 넘겨진다, 이전의 값을 보고 다음 값 1개를 예측하는 방식
+X_train, y_train, X_test, y_test = preprocess_data(loaded_dataset, window)  # [::-1] 을 하면 리스트가 역순으로 반환된다. 12 > 21
 
 print("X_train", X_train.shape)
 print("y_train", y_train.shape)

@@ -12,7 +12,7 @@ import pandas as pd
 import sklearn.preprocessing as prep
 
 
-epochs = 10000
+epochs = 1
 learning_rate = 0.01
 batch_size = 32
 sequence = 5
@@ -81,9 +81,12 @@ def preprocess_data(dataset, seq_len):
     print('result.shape[0] * 0.9 : ', result.shape[0] * 0.9)
     print('Round(result.shape[0] * 0.9) : ', round(result.shape[0] * 0.9))
     train = result[: int(row), :]
-    print('train.shape : ', train.shape)
-    print('train : ', train)
+    print(result[: int(row), :])
+    print('shape : ', train.shape)
+    print('train : ', train.shape)
     train, result = standard_scaler(train, result)  # 정규분포를 이용하여 데이터 전처리 과정을 통과시키고 반환받음
+    print('정규화 train : ', train.shape)
+    print('정구화 result : ', result.shape)
 
 
     print('트레인 : ', train)
@@ -169,7 +172,18 @@ for u in range(len(y_test)):  # 테스트 값의 라벨 만큼 반복문을 돌�
     diff.append(abs(y_test[u] - pr))
 
 
+test_set = loaded_dataset.iloc[:, 8:9]  # iloc 은 pandas 라이브러리의 함수이며, 지정한 범위까지의 데이터를 불러온다. iloc[:,] 여기서 :, 는 왜 있는지 모르겠다
+
+array_test= test_set.values  # csv 파일의 값만 불러와서 튜플로 저장함
+
+sc = prep.StandardScaler().fit(array_test)  # 0을 기준으로 정규분포를 만드는 것 같다.
+array_test = sc.transform(array_test)       # 어쨌든 데이터 전처리 과정임
+
+y_test = sc.inverse_transform(y_test)
+pred = sc.inverse_transform(pred)
+
 import matplotlib.pyplot as plt2
+
 
 plt2.plot(y_test, color='blue', label='real_page_impressions')
 plt2.plot(pred, color='red', label='Predicted_page_impressions')
